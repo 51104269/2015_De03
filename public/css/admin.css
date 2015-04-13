@@ -1,0 +1,42 @@
+.accFunc,.proFunc,.catFunc{
+	width:100%;
+	height:50px;
+	font-size:100%;	
+
+	/* CSS Transition */
+	-webkit-transition: background .2s ease-in-out, border .2s ease-in-out;
+	-moz-transition: background .2s ease-in-out, border .2s ease-in-out;
+	-ms-transition: background .2s ease-in-out, border .2s ease-in-out;
+	-o-transition: background .2s ease-in-out, border .2s ease-in-out;
+	transition: background .2s ease-in-out, border .2s ease-in-out;
+}
+.gallery img {
+	width:200px;
+	height:200px;
+}
+.gallery {
+  z-index:99999;
+  position:fixed;
+  top:25%;
+  overflow: auto;
+  background-color: rgba(58, 60, 7, 0.5);
+  max-height:444px;
+  display:none;
+}
+.gallery ul > li {
+	display:inline;
+	margin-right:0.5em;
+}
+#acc-content,#pro-content,#cat-content, .edit-result {
+	display:none;
+}
+#acc-content h3,#pro-content h3,#cat-content h3, .navbar-brand, h3 {
+	text-align:center;
+	font-family: "Open Sans", "segoe ui", Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
+	font-weight: 300;
+	color: purple;
+}
+ul {
+	list-style-type:none;
+}

@@ -5,6 +5,7 @@ Võ Quang Vinh - 51104269
 Nguyễn Hữu Trí - 51103803
 Trương Thuận Lợi - 51101969
 Nguyễn Tiến Thành -51103220
+Nguyễn Tiến Tuấn -51104012
 <br>
 <h1>VIOLET1009 SHOP</h1>
 

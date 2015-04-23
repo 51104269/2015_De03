@@ -73,6 +73,7 @@ $("#admin-login-form").submit(function(e){
 
 $("#account-new-form").submit(function(e){
 	e.preventDefault();
+	$("#acc-content .addAcc" + ".loading").show();
 	if($(this).find("#password").val().length < 6) {
 		$("#acc-content .new-result").html("Password phải có độ dài >=6 ");
 	}
@@ -97,12 +98,14 @@ $("#account-new-form").submit(function(e){
 			}
 		});
 	}
+	$("#acc-content .addAcc" + ".loading").hide();
 });
 
 $("#acc-content .edit-link").click(function(e){
 	e.preventDefault();
 	var id = $(this).attr('id');
 	var num = $(this).attr('num').toString();
+	$("#acc-content " + "." + num + ".loading").show();
 	var group = $("#acc-content " + "." + num + ".group").val();
 	$.ajax({
         url: "account/update/" + id,
@@ -111,6 +114,7 @@ $("#acc-content .edit-link").click(function(e){
 		dataType: 'json',	
         success: function(data){
 			var arr = $.map(data, function(el) { return el; });
+			$("#acc-content " + "." + num + ".loading").hide();
 			$("#acc-content " + "." + num + ".edit-result").show();
 			$("#acc-content " + "." + num + ".edit-result").html("Xong");
 			$("#acc-content " + "." + num + ".edit-result").fadeOut(3600, "linear");
@@ -142,6 +146,7 @@ $("#acc-content .delete-link").click(function(e){
 
 $("#cat-new-form").submit(function(e){
 	e.preventDefault();
+	$("#cat-content .addCat" + ".loading").show();
 	if($(this).find("#name").val().length < 6) {
 		$("#cat-content .new-result").html("Tên thư mục nên có độ dài >=3 ");
 	}
@@ -152,7 +157,8 @@ $("#cat-new-form").submit(function(e){
 			data: $(this).serialize(),
 			dataType: 'json',	
 			success: function(data){
-				var arr = $.map(data, function(el) { return el; });				
+				var arr = $.map(data, function(el) { return el; });
+				$("#cat-content .addCat" + ".loading").hide();				
 				$("#cat-content .new-result").html("Thư mục đã được tạo !");	
 			},
 			error:function(){
@@ -165,6 +171,7 @@ $("#cat-new-form").submit(function(e){
 $("#cat-content .edit-link").click(function(e){
 	e.preventDefault();
 	var id = $(this).attr('id').toString();
+	$("#cat-content " + "." + id + ".loading").show();
 	var name = $("#cat-content " + "." + id + ".cat-name").html();
 	$.ajax({
         url: "category/update/" + id,
@@ -173,6 +180,7 @@ $("#cat-content .edit-link").click(function(e){
 		dataType: 'json',	
         success: function(data){
 			var arr = $.map(data, function(el) { return el; });
+			$("#cat-content " + "." + id + ".loading").hide();
 			$("#cat-content " + "." + id + ".edit-result").show();
 			$("#cat-content " + "." + id + ".edit-result").html("Xong");
 			$("#cat-content " + "." + id + ".edit-result").fadeOut(3600, "linear");
@@ -202,6 +210,7 @@ $("#cat-content .delete-link").click(function(e){
 });
 
 $("#product-new-form").submit(function(e){
+	$("#pro-content #addProduct " + ".loading").show();
 	e.preventDefault();
 	$.ajax({
 		url: "product/new",
@@ -210,6 +219,8 @@ $("#product-new-form").submit(function(e){
 		dataType: 'json',	
 		success: function(data){
 			var arr = $.map(data, function(el) { return el; });
+			//alert(arr[0]);
+			$("#pro-content #addProduct "  + ".loading").hide();
 			$("#pro-content .new-result").html("Sản Phẩm đã được tạo !");	
 		},
 		error:function(){
@@ -221,25 +232,27 @@ $("#product-new-form").submit(function(e){
 $("#pro-content .edit-link").click(function(e){
 	e.preventDefault();
 	var id = $(this).attr('id').toString();
+	$("#pro-content " + "." + id + ".loading").show();
 	var name = $("#pro-content " + "." + id + ".pro-name").html();
 	var url = $("#pro-content " + "." + id + ".pro-url").attr("src");
 	var desc = $("#pro-content " + "." + id + ".pro-desc").html();
 	var price = $("#pro-content " + "." + id + ".pro-price").val();
-	var cat_id = $("#pro-content " + "." + id + ".pro-cat").html();
+	var cat_list = $("#pro-content " + "." + id + ".pro-cat").find("input[type=checkbox]:checked").map(function() {return this.value;}).get();
 	$.ajax({
         url: "product/update/" + id,
         type: "get",
-        data: {name: name, url: url, desc: desc, price: price, cat_id: cat_id },
+        data: {name: name, url: url, desc: desc, price: price, category_list: cat_list},
 		dataType: 'json',	
         success: function(data){
+			$("#pro-content " + "." + id + ".loading").hide();
 			var arr = $.map(data, function(el) { return el; });
 			$("#pro-content " + "." + id + ".edit-result").show();
 			$("#pro-content " + "." + id + ".edit-result").html("Xong");
 			$("#pro-content " + "." + id + ".edit-result").fadeOut(3600, "linear");
         },
-        error:function(){
-            alert("failure");
-        }
+        error: function(request, status, error) {
+			alert(request.responseText);
+		}
     });
 });
 

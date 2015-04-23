@@ -67,6 +67,7 @@
 					</div>
 				</div>	
 			</form>
+			<img class="loading" src="images\loader.gif">
 			<p class="new-result"></p>
 			@include('admin.gallery')
 		</div>
@@ -93,8 +94,25 @@
 						<td>
 							<input type="number" step="any" class="{{$pro->id}} pro-price" value="{{$pro->price}}">
 						</td>
-						<td contenteditable="true" class="{{$pro->id}} pro-cat">{{$pro->category_id}}</td>
+						<td class="{{$pro->id}} pro-cat">
+							@foreach(App\Category::all() as $cat)
+								<?php $check = false;?>
+								@foreach(App\ProdCat::all() as $prodcat)
+									@if($cat->id == $prodcat->category_id && $pro->id == $prodcat->product_id )
+										<?php $check = true;?>		
+									@endif
+								@endforeach
+								<?php 
+									if($check) 
+										echo "<input type='checkbox'  name='{$pro->id}category_list[]' value='{$cat->id}' checked>{$cat->name} <br>";
+									else 
+										echo "<input type='checkbox'  name='{$pro->id}category_list[]' value='{$cat->id}'>{$cat->name} <br>";
+								?>
+								
+							@endforeach
+						</td>
 						<td><button class="btn edit-link" id="{{$pro->id}}">Chỉnh Sửa</button>
+							<img class="{{$pro->id}} loading" src="images\loader.gif">
 							<p class="{{$pro->id}} edit-result"></p>
 						</td>
 						<td><button class="btn delete-link" id="{{$pro->id}}">Xóa</button></td>

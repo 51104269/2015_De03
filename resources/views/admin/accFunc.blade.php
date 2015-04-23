@@ -40,6 +40,7 @@
 			</div>
 			
 		</form>
+		<img class="addAcc loading" src="images\loader.gif">
 		<p class="new-result"></p>
 	</div>
 	<div class="col-md-6">
@@ -69,6 +70,7 @@
 							</select>
 						</td>
 						<td><button class="btn edit-link" id="{{$acc->email}}" num="{{$i}}">Chỉnh Sửa</button>
+							<img class="{{$i}} loading" src="images\loader.gif">
 							<p class="{{$i}} edit-result"></p>
 						</td>
 						<td><button class="btn delete-link" id="{{$acc->email}}" num="{{$i}}">Xóa</button></td>

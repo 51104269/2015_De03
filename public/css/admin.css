@@ -10,6 +10,9 @@
 	-o-transition: background .2s ease-in-out, border .2s ease-in-out;
 	transition: background .2s ease-in-out, border .2s ease-in-out;
 }
+.loading {
+	display:none;
+}
 .gallery img {
 	width:200px;
 	height:200px;

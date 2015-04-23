@@ -15,6 +15,7 @@
 				</div>
 			</div>	
 		</form>
+		<img class="addCat loading" src="images\loader.gif">
 		<p class="new-result"></p>
 	</div>
 	<div class="col-md-6">
@@ -32,6 +33,7 @@
 						<td> {{ $cat->id }}</td>
 						<td contenteditable="true" class="{{$cat->id}} cat-name">{{$cat->name}}</td>
 						<td><button class="btn edit-link" id="{{$cat->id}}">Chỉnh Sửa</button>
+							<img class="{{$cat->id}} loading" src="images\loader.gif">
 							<p class="{{$cat->id}} edit-result"></p>
 						</td>
 						<td><button class="btn delete-link" id="{{$cat->id}}">Xóa</button></td>

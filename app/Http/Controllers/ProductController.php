@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\ProdCat;
 use Response;
 use Validator;
 use Redirect;
@@ -42,7 +43,18 @@ class ProductController extends Controller {
 				"description" => $_POST['description'],
 				"price"    	  => $_POST['price'],
 				"category_id" => 1	
-			]);
+		]);
+			
+		$product_id = Product::orderBy('created_at', 'desc')->first()->id;
+		if(!empty($_POST['category_list'])) {
+			foreach($_POST['category_list'] as $cat_id) {
+				ProdCat::create([
+				"product_id"  => $product_id,
+				"category_id" => $cat_id	
+				]);
+			}
+		}
+			
 		return Response::json([
 					"status"  => 'ok'
 				]);	
@@ -118,14 +130,28 @@ class ProductController extends Controller {
 	 * @return Response
 	 */
 	public function update($id)
-	{
+	{	
+		
 		$pro = Product::find($id);
 		$pro->name = $_GET['name'];
 		$pro->url = $_GET['url'];
 		$pro->description = $_GET['desc'];
 		$pro->price = $_GET['price'];
-		$pro->category_id = $_GET['cat_id'];
+		$pro->category_id = 1;
 		$pro->save();
+		foreach(ProdCat::all() as $pc){
+			if($pc->product_id == $id)
+				$pc->delete();
+		}
+		if(!empty($_GET['category_list'])) {
+			foreach($_GET['category_list'] as $cat_id) {
+				ProdCat::create([
+				"product_id"  => $id,
+				"category_id" => $cat_id	
+				]);
+			}
+		}
+		
 		return Response::json([
 					"status"  => "ok"
 				]);
@@ -138,7 +164,11 @@ class ProductController extends Controller {
 	 * @return Response
 	 */
 	public function destroy($id)
-	{
+	{	
+		foreach(ProdCat::all() as $pc){
+			if($pc->product_id == $id)
+				$pc->delete();
+		}
 		$pro = Product::find($id);
 		$pro->delete();
 		

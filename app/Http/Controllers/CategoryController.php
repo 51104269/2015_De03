@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
 use Response;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller {
@@ -50,10 +51,16 @@ class CategoryController extends Controller {
 	 * @return Response
 	 */
 	public function show($id)
-	{
-		//
+	{	
+		$cat = Category::find($id);
+		$products = Category::productList($id);
+		
+		return view('category',['cat' => $cat,
+								'products' =>  $products
+								]);
 	}
-
+	
+	
 	/**
 	 * Show the form for editing the specified resource.
 	 *

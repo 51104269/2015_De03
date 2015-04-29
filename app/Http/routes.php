@@ -24,6 +24,12 @@ Route::post('auth/admin-login', 'adminController@login');
 
 Route::get('auth/admin-logout', 'adminController@logout');
 //-------------------------
+//---User Routes
+Route::get('loginView', 'AccountController@loginView');
+Route::get('signupView', 'AccountController@signupView');
+Route::post('auth/user-login', 'AccountController@login');
+Route::get('auth/user-logout', 'AccountController@logout');
+Route::post('auth/user-signup', 'AccountController@signup');
 
 Route::any("category/index", [
   "as"   => "category/index",
@@ -43,9 +49,15 @@ Route::get('account/destroy/{id}', 'accountController@destroy');
 //--Category Route
 Route::post('category/new', 'categoryController@create');
 Route::get('category/update/{id}', 'categoryController@update');
+Route::get('category/{id}/', [
+    'as' => 'category', 'uses' => 'categoryController@show'
+]);
 Route::get('category/destroy/{id}', 'categoryController@destroy');
 
 //--Product Route
+Route::get('product/{id}/', [
+    'as' => 'product', 'uses' => 'productController@show'
+]);
 Route::post('product/new', 'productController@create');
 Route::get('product/update/{id}', 'productController@update');
 Route::get('product/destroy/{id}', 'productController@destroy');

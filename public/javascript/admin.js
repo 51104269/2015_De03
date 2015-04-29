@@ -147,7 +147,7 @@ $("#acc-content .delete-link").click(function(e){
 $("#cat-new-form").submit(function(e){
 	e.preventDefault();
 	$("#cat-content .addCat" + ".loading").show();
-	if($(this).find("#name").val().length < 6) {
+	if($(this).find("#name").val().length < 3) {
 		$("#cat-content .new-result").html("Tên thư mục nên có độ dài >=3 ");
 	}
 	else {

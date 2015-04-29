@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers;
-
-
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -17,7 +16,66 @@ class AccountController extends Controller {
 	{
 		//
 	}
-
+	public function signup()
+	{   
+		$account =  new Account;
+		if($account->checkEmail($_POST['email'])){
+			$acc = Account::create([
+				"email"    => $_POST['email'],
+				"password" => bcrypt($_POST['password']),
+				"group"    => $_POST['account-type']
+			]);
+			Auth::loginUsingId($acc->id);
+			return Response::json([
+					"status"  => 'ok'
+				]);	
+				
+		}		
+		else
+			return Response::json([
+					"status"  => 'fail'
+				]);	
+	}
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	 public function logout()
+	{	
+		Auth::logout();
+		return redirect('/');
+	}
+	
+	 public function login()
+	{
+		$credentials = [
+		  "email"    => $_POST["email"],
+		  "password" => $_POST["password"],
+		  "group"    => "user"
+		];
+		$remember = (array_key_exists('remember', $_POST)) ? true : false;
+		
+		if (Auth::attempt($credentials, $remember)) 
+		{ 		 
+			return Response::json([
+				"status"  => "ok",
+			]);
+		}	
+		return Response::json([
+		    "status" => "invalid"
+		]);
+	}
+	
+	public function loginView(){
+		
+		return view('login');
+	}
+	
+	public function signupView(){
+		
+		return view('signup');
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -25,7 +83,6 @@ class AccountController extends Controller {
 	 */
 	public function create()
 	{   
-		
 		$account =  new Account;
 		if($account->checkEmail($_POST['email'])){
 			Account::create([
@@ -40,7 +97,7 @@ class AccountController extends Controller {
 		}		
 		else
 			return Response::json([
-					"statuss"  => 'fail'
+					"status"  => 'fail'
 				]);	
 	}
 

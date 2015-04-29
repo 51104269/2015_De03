@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProdCat;
+use App\Category;
 use Response;
 use Validator;
 use Redirect;
@@ -109,7 +110,23 @@ class ProductController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$product = Product::find($id);
+		$arr = array();
+		$cat_id = 0;
+		foreach(ProdCat::all() as $prod){
+			if ($prod->product_id == $id) {
+					$cat_id = $prod->category_id;
+			}
+		}
+		foreach(ProdCat::all() as $prod){
+			if ($prod->category_id == $cat_id) {
+				$product = Product::find($prod->product_id);
+				array_push($arr,$product);
+			}
+		}
+		
+		return view('product',['product' => $product,
+								'related_products' => $arr	]);
 	}
 
 	/**

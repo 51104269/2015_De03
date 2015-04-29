@@ -7,7 +7,7 @@ class AdminController extends Controller {
 	|--------------------------------------------------------------------------
 	| Admin Controller
 	|--------------------------------------------------------------------------
-	| Created to control administration functions 24/03/2015 
+	| Created to control administration functions 24/03/2015 by NTT
 	*/
 
 	/**
@@ -16,7 +16,7 @@ class AdminController extends Controller {
 	 * @return Response
 	 */
 	public function index()
-	{	if (Auth::check())
+	{	if (Auth::check() &&  Auth::user()->group == 'admin')
 			return view('admin',['check' => true]);
 		else 
 			return view('admin',['check' => false]);

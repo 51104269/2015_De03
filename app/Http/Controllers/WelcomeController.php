@@ -1,5 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Cookie\CookieJar;
+use Response;
+use Cookie;
+
 class WelcomeController extends Controller {
 
 	/*
@@ -30,7 +34,8 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('main');
+		$view = view('main');
+		return Response::make($view);
 	}
 	
 }

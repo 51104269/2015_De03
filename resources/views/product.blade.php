@@ -20,7 +20,7 @@
       <!-- Product view -->
       <div class="product-view row">
         <div class="col-sm-6 col-md-6 col-lg-6">
-          <div class="large-image"> <img alt="{{$product->name}}" class = "cloudzoom" src = "{{ URL::asset('/') }}{{$product->url}}" data-cloudzoom = "zoomImage: '{{ URL::asset('/') }}{{$product->url}}', autoInside : 991" /> </div>
+          <div class="large-image"> <img alt="{{$product->name}}" class = "cloudzoom cartUrl {{$product->id}}" src = "{{ URL::asset('/') }}{{$product->url}}" data-cloudzoom = "zoomImage: '{{ URL::asset('/') }}{{$product->url}}', autoInside : 991" /> </div>
           <div class="flexslider flexslider-thumb">
 
             <ul class="previews-list slides">
@@ -41,12 +41,13 @@
               <div class="box-wrap-center"></div>
               <div class="box">
                 <div class="box-content">
-                  <h2>{{$product->name}}</h2>
+                  <h2 class="cartName {{$product->id}}">{{$product->name}}</h2>
 				  <?php if(in_array($product,App\Category::sale())) {?>
-					<span class="price old">{{$product->price}}</span> <span class="price new"><?php echo 0.9*$product->price ;?></span> <br>
+					<span class="price old">{{$product->price}}</span> <span class="price new lastprice {{$product->id}}"><?php echo 0.9*$product->price ;?></span> <br>
 				  <?php } else { ?>
-					<span class="price">{{$product->price}}</span> <br>
+					<span class="price lastprice {{$product->id}}">{{$product->price}}</span> <br>
 				  <?php } ?>
+				  <h2 class ="CartAlert {{$product->id}}">Đã Thêm</h2>
                </div>
               </div>
             </div>
@@ -58,11 +59,11 @@
             <form>
 				  <div class="option"> <b>Số lượng:</b>
 					<div class="input-group quantity-control"> <span class="input-group-addon">&minus;</span>
-					  <input type="text" class="form-control" value="1">
+					  <input type="text" class="form-control quantity {{$product->id}}" value="1">
 					  <span class="input-group-addon">+</span> </div>
 				  </div>
 				  <div class="clearfix visible-xs"></div>
-				  <button class="btn btn-mega btn-lg" type="submit">MUA HÀNG</button>
+				  <a class ="purchase" src="{{URL::asset('/')}}" id="{{$product->id}}"><button class="btn btn-mega btn-lg">MUA HÀNG</button></a>
             </form>
             <div class="panel-group accordion-simple" id="product-accordion">
               <div class="panel">

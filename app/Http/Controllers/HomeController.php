@@ -1,5 +1,5 @@
 <?php namespace App\Http\Controllers;
-
+use Illuminate\Cookie\CookieJar;
 class HomeController extends Controller {
 
 	/*
@@ -29,8 +29,11 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function index()
-	{
-		return view('main');
+	{	
+		$view = view('main');
+		
+		return Response::make($view);
+		
 	}
 	
 }

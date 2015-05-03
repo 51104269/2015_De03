@@ -10,6 +10,7 @@
 <meta name="author" content="Dedorewan">
 <title>VIOLET1009 SHOP</title>
 <!-- CSS preloader -->
+{!! HTML::style('css/main.css') !!}
 {!! HTML::style('main/css/loader.css') !!}
 <!-- Bootstrap core CSS -->
 {!! HTML::style('main/css/bootstrap.min.css') !!}
@@ -71,7 +72,7 @@
           <div class="container"> 
             <!-- Logo -->
             <div class="navbar-logo pull-left"> <a href="#"><img src="{{ URL::asset('/') }}images/header-logo.png" alt="Violet1009"></a></div>
-            <div class="navbar-welcome pull-left compact-hidden hidden-xs">Chào mừng đến với Violet1009 </div>
+            <div class="navbar-welcome pull-left compact-hidden hidden-xs">Chào mừng đến với Violet1009  <?php echo Cookie::get('cart'); ?> </div>
             <div class="clearfix visible-sm"></div>
             <!-- //end Logo --> 
             <!-- Secondary menu -->
@@ -90,19 +91,24 @@
 				  @else 
 					  <li><a href="#">Tài Khoản</a></li>
 					 <li><a href="{{ url('auth/user-logout') }}">Đăng Xuất</a></li>	
+					 <li><a href="{{ url('cart')}}">Giỏ Hàng</a></li>	
 				  @endif
                 </ul>
               </div>
-              <div class="btn-group"> <a href="#"  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="compact-hidden">Giỏ hàng - <strong>$245</strong></span> <span class="icon-xcart-animate"><span class="box">3</span><span class="handle"></span></span> </a>
-                <div class="dropdown-menu pull-right shoppingcart-box" role="menu"> Sản phẩm mới thêm vào
+              <div class="btn-group"> <a href="#"  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="compact-hidden">Giỏ hàng - <span class = "preview-cart total">{{App\Order::total_price(Cookie::get('cart'))}}</span> 000VND</span> <span class="icon-xcart-animate"><span class="box ajaxCartQuantity">{{App\Order::number_items(Cookie::get('cart'))}}</span><span class="handle"></span></span> </a>
+                <div class="dropdown-menu pull-right shoppingcart-box" role="menu"> Sản phẩm mới thêm vào 
                   <ul class="list">
-                    <li class="item"> <a href="#" class="preview-image"><img class="preview" src="{{ URL::asset('/') }}images/products/product-07-small.jpg" alt=""></a>
-                      <div class="description"> <a href="#">Váy đầm kute</a> <strong class="price">1 x $44.95</strong> </div>
+					<?php $product = App\Order::last_product(Cookie::get('cart'));
+						  if ($product != null){
+					?>
+                    <li class="item"> <a href="#" class="preview-image"><img class="preview preview-cart url" src="{{ URL::asset('/') }}{{$product->url}}" alt=""></a>
+                      <div class="description"> <a href="#" class = "preview-cart name">{{$product->name}}</a> <strong class="preview-cart price">{{$product->price}}</strong>VND</div>
                     </li>
+					<?php } else echo "<li>Không có sản phẩm nào</li>";?>
                   </ul>
-                  <div class="total">Tổng cộng: <strong>$44.95</strong></div>
+                  <div class="total">Tổng cộng: <span class ="preview-cart total">{{App\Order::total_price(Cookie::get('cart'))}}</span> 000VND</div>
                   <a href="#" class="btn btn-mega">Thanh Toán</a>
-                  <div class="view-link"><a href="#">Xem giỏ hàng </a></div>
+                  <div class="view-link"><a href="{{ url('cart')}}">Xem giỏ hàng </a></div>
                 </div>
               </div>
             </div>
@@ -217,21 +223,22 @@
                 <!-- //end Search --> 
               </div>
             </div>
-            <div class="nav-item item-04"><a href="#"><span class="icon-xcart-white">3</span></a>
+            <div class="nav-item item-04"><a href="#"><span class="icon-xcart-white"><span class="box ajaxCartQuantity">{{App\Order::number_items(Cookie::get('cart'))}}</span></span></a>
               <div class="tab-content">
                 <div class="shoppingcart-box">
                   <div class="title">Sản phẩm mới thêm vào</div>
                   <ul class="list">
-                    <li class="item">
-                      <div class="icon-product-edit"><a class="icon icon-edit" href="#"></a></div>
-                      <div class="icon-product-delete"><a class="icon icon-trash-2" href="#"></a></div>
-                      <a href="product_default.html" class="preview-image"><img class="preview" src="{{ URL::asset('/') }}images/products/product-02-small.jpg" alt=""></a>
-                      <div class="description"> <a href="#">Váy Kute</a> <strong class="price">1 x $44.95</strong> </div>
+                    <?php $product = App\Order::last_product(Cookie::get('cart'));
+						  if ($product != null){
+					?>
+                    <li class="item"> <a href="#" class="preview-image"><img class="preview preview-cart url" src="{{ URL::asset('/') }}{{$product->url}}" alt=""></a>
+                      <div class="description"> <a href="#" class = "preview-cart name">{{$product->name}}</a> <strong class="preview-cart price">{{$product->price}}</strong>VND</div>
                     </li>
+					<?php } else echo "<li>Không có sản phẩm nào</li>";?>
                   </ul>
-                  <div class="total">Tổng Cộng: <strong>$44.95</strong></div>
+                  <div class="total">Tổng cộng: <span class ="preview-cart total">{{App\Order::total_price(Cookie::get('cart'))}}</span> 000VND</div>
                   <a href="#" class="btn btn-mega">Thanh Toán</a>
-                  <div class="view-link"><a href="shopping_cart.html">Xem giỏ hàng </a></div>
+                  <div class="view-link"><a href="#">Xem giỏ hàng </a></div>
                 </div>
               </div>
             </div>
@@ -270,8 +277,7 @@
               <div class="image-cell"><a href="blog.html"><img src="{{ URL::asset('/') }}images/temp/block-image-03-176x119.jpg" class="img-responsive animate scale" alt=""></a></div>
               <div class="offset-image">
                 <h4><a href="#">Cập Nhật Giao Diện Chính </a></h4>
-                <p> <span class="rating"> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-3"></i> <i class="icon-star-empty"></i> </span> &nbsp;&nbsp; <a href="blog.html">5 Comments</a> </p>
-                <p>Thêm các chức năng màn hình chính.<br> Nguyễn Tiến Thành 25-4-2015</p>
+                <p>Thêm các chức năng màn hình chính.<br> Nguyễn Tiến Thành 01-05-2015</p>
               </div>
             </li>
           </ul>
@@ -389,6 +395,7 @@
 {!! HTML::script('main/js/jquery.countdown.js') !!} 
 {!! HTML::script('main/js/jquery.carouFredSel-6.2.1-packed.js') !!}
 {!! HTML::script('main/js/megatron.js') !!} 
+{!! HTML::script('javascript/cart_handle.js') !!} 
 <!-- SLIDER REVOLUTION 4.x SCRIPTS  --> 
 <script type="text/javascript" src="main/rs-plugin/js/jquery.themepunch.tools.min.js"></script> 
 <script type="text/javascript" src="main/rs-plugin/js/jquery.themepunch.revolution.min.js"></script> 

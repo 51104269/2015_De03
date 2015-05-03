@@ -41,6 +41,12 @@ Route::any("order/index", [
   "uses" => "OrderController@indexAction"
 ]);
 
+//-- Cart Route
+Route::get('cart', 'OrderController@index');
+Route::get('cart/add', 'OrderController@add_to_cart');
+Route::get('cart/delete', 'OrderController@remove_from_cart');
+Route::get('cart/edit', 'OrderController@update_cart');
+
 //--Account Route
 Route::post('account/new', 'accountController@create');
 Route::get('account/update/{id}', 'accountController@update');

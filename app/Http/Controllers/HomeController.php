@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 use Illuminate\Cookie\CookieJar;
+use Response;
 class HomeController extends Controller {
 
 	/*

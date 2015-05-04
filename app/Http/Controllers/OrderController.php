@@ -5,8 +5,10 @@ use App\Http\Controllers\Controller;
 use App\Order;
 use Cookie;
 use Response;
+use Mail;
 use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
+
 
 class OrderController extends Controller {
 
@@ -53,6 +55,20 @@ class OrderController extends Controller {
 		return Response::json([
 					"status"  => 'ok'
 				]);
+	}
+	
+	public function checkout(){
+		return view('checkout');
+	}
+	
+	public function checkout_mail(){
+		Mail::send('emails.view', array('name'=> $_GET['name'], 'total' => $_GET['total'] , 'address' => $_GET['address']), function($message){
+			$message->to($_GET['email'],$_GET['name'])->subject('XÁC NHẬN ĐƠN HÀNG TỪ VIOLET1009');
+		});
+		return Response::json([
+				"status"  => 'ok'
+		]);
+
 	}
 	
 	public function create()

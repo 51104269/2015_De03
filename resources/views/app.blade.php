@@ -83,7 +83,7 @@
 				@endif	
               <div class="btn-group compact-hidden"> <a href="#"  class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"> <span class="icon icon-vcard"></span> Tài Khoản <span class="caret"></span> </a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Thanh Toán</a></li>
+                  <li><a href="{{ url('checkout')}}">Thanh Toán</a></li>
                   <li class="divider"></li>
 				  @if (!Auth::check())
 					<li><a href="{{ url('loginView')}}">Đăng Nhập</a></li>
@@ -107,7 +107,7 @@
 					<?php } else echo "<li>Không có sản phẩm nào</li>";?>
                   </ul>
                   <div class="total">Tổng cộng: <span class ="preview-cart total">{{App\Order::total_price(Cookie::get('cart'))}}</span> 000VND</div>
-                  <a href="#" class="btn btn-mega">Thanh Toán</a>
+                  <a href="{{ url('checkout')}}" class="btn btn-mega" >Thanh Toán</a>
                   <div class="view-link"><a href="{{ url('cart')}}">Xem giỏ hàng </a></div>
                 </div>
               </div>
@@ -237,8 +237,8 @@
 					<?php } else echo "<li>Không có sản phẩm nào</li>";?>
                   </ul>
                   <div class="total">Tổng cộng: <span class ="preview-cart total">{{App\Order::total_price(Cookie::get('cart'))}}</span> 000VND</div>
-                  <a href="#" class="btn btn-mega">Thanh Toán</a>
-                  <div class="view-link"><a href="#">Xem giỏ hàng </a></div>
+                  <a href="{{ url('checkout')}}" class="btn btn-mega">Thanh Toán</a>
+                  <div class="view-link"><a href="{{ url('cart')}}">Xem giỏ hàng </a></div>
                 </div>
               </div>
             </div>

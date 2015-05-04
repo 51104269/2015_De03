@@ -4,3 +4,39 @@
 .product-view .CartAlert {
 	display:none;
 }
+.checkout-page table {
+  width: 100%;
+  margin-bottom: 35px;
+}
+.checkout-page .box{  
+  background: #f7f7f7;
+  padding: 0 70px 30px;
+  margin-bottom: 10px;
+
+}
+
+.checkout-page table th {
+  text-align: center;
+  padding: 10px 10px 11px;
+  border-bottom: 1px solid #cfcfcf;
+  vertical-align: middle;
+}
+.checkout-page .remove-button {
+  text-decoration: none;
+  color: #c7c7c7;
+  font-size: 18px;
+ }
+ .checkout-page .preview {
+  width: 52px;
+}
+.checkout-page table td {
+  padding: 8px 38px;
+}
+
+.checkout-page table td:first-child {
+  padding: 8px 0;
+  font-size: 1.5em;
+}
+.loading{
+  display:none;
+}

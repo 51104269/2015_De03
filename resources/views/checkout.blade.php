@@ -3,7 +3,7 @@
 @section('content')
 	<!-- Breadcrumbs -->
     <section class="container">
-      <nav class="breadcrumbs"> <a href="{{ url('/')}}">Home</a> <span class="divider">›</span> Giỏ Hàng </nav>
+      <nav class="breadcrumbs"> <a href="{{ url('/')}}">Home</a> <span class="divider">›</span>Thanh Toán</nav>
     </section>
     <!-- //end Breadcrumbs --> 
     
@@ -12,37 +12,32 @@
       <div class="row">
         <section class="col-md-8 col-lg-8"> 
           
-          <!-- Shopping cart -->
+          <!-- Checkout -->
           <section class="content-box">
-            <div class="shopping_cart"> <img class="back img-responsive" src="images/shopping-cart-back.png" alt="">
+            <div class="checkout-page"> <img class="back img-responsive" src="images/shopping-cart-back.png" alt="">
               <div class="box">
                 <h3>GIỎ HÀNG CỦA BẠN</h3>
                 <table>
                   <thead>
                     <tr class="hidden-xs">
                       <th></th>
-                      <th></th>
                       <th>Sản Phẩm</th>
                       <th>Đơn Giá</th>
                       <th>Số Lượng</th>
                       <th>Tổng Cộng</th>
-					  <th></th>
                     </tr>
                   </thead>
                   <tbody>
 					@foreach(App\Order::get_Cart(Cookie::get('cart')) as $item)
 						<tr id="{{$item['product']->id}}">	
-						  <td><a href="{{$item['product']->id}}" src="{{ URL::asset('/')}}" class="remove-button hidden-xs"><span class="icon-cancel-2 "></span></a></td>
 						  <td><a href="#" class="remove-button visible-xs"><span class="icon-cancel-2 "></span></a><a href=""><img class="preview" src="{{ URL::asset('/') }}{{$item['product']->url}}"></a></td>
 						  <td><span class="td-name visible-xs">Product</span><a href="#">{{$item['product']->name}}</a></td>
 						  <td><span class="td-name visible-xs">Price</span>{{$item['product']->price}}</td>
-						  <td><span class="td-name oldQuantity {{$item['product']->id}} visible-xs">{{$item['quantity']}}</span><div class="input-group quantity-control"> <span class="input-group-addon">&minus;</span>
-							  <input type="text" class="form-control quantity {{$item['product']->id}}" value="{{$item['quantity']}}">
-							  <span class="input-group-addon">+</span>
+						  <td><span class="td-name oldQuantity {{$item['product']->id}} visible-xs">{{$item['quantity']}}</span><div class="input-group quantity-control">
+							  <span class="form-control quantity {{$item['product']->id}}">{{$item['quantity']}}</span>
 							  </div>				  
 						  </td> 
 						  <td><span class="td-name visible-xs">Total</span><span class="lastprice {{$item['product']->id}}">{{$item['price']}}</span><span> 000VND</span></td>
-						  <td><a href="{{$item['product']->id}}" src="{{ URL::asset('/')}}" class="edit-button btn  btn-default hidden-xs">Cập Nhập</span></a></td>
 						</tr>
 					@endforeach
                   </tbody>
@@ -50,9 +45,28 @@
                 <div class="pull-left"> <b class="title">Phí chuyển hàng:</b> Miễn Phí </div>
                 <div class="pull-right">
                   <p><b class="title">Tổng Cộng Hóa Đơn:</b> <span class="price">{{App\Order::total_price(Cookie::get('cart'))}}</span> 000 VND</p>
-                  <a href="{{ url('checkout')}}"><button type="submit" class="btn btn-mega">THANH TOÁN</button></a>
                 </div>
                 <div class="clearfix"></div>
+				<?php if(App\Order::number_items(Cookie::get('cart')) != 0) { ?>
+					<form action="#" id="mailForm">
+						
+					   <div class="form-group">
+						<label class="light">TÊN<span class="required"> *</span></label>
+						<input type="text" id="name" name ="name" class="form-control" required  >
+					  </div>
+					  <div class="form-group">
+						<label class="light">ĐỊA CHỈ EMAIL<span class="required"> *</span></label>
+						@if(!Auth::check())
+							<input type="email" id="email" name ="email" class=form-control">
+						@else
+							<input type="email" id="email" name ="email" class="form-control" value="{{Auth::user()->email}}" disabled>
+						@endif
+					  </div>
+					  <button type="submit" src="{{ URL::asset('/') }}" class="btn btn-mega">THANH TOÁN</button>
+					  <img class="loading" src="{{ URL::asset('/') }}images\loader.gif">
+					</form>
+				<?php } else echo "<h5>GIỎ HÀNG CỦA BẠN TRỐNG</h5>"; ?> 
+				<h5 class="mailNotification"></h5>
               </div>
             </div>
           </section>
@@ -78,7 +92,7 @@
           <!-- Estimate shipping -->
           <section class="container-widget">
             <h3>VẬN CHUYỂN</h3>
-            <form role="form">
+            <form role="form" id="addressForm">
               <div class="form-label">Điền thông tin nơi nhận hàng</div>
               <div class="form-group-sm btn-select btn-select-xl btn-select-wide"> <a href="#" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"> <span class="value">Tp.Hồ Chí Minh</span> <span class="caret min"></span> </a>
                 <ul class="dropdown-menu">
@@ -91,7 +105,7 @@
                 </ul>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control input-sm"  value="Địa Chỉ" >
+                <input type="text" name="address" id="address" class="form-control input-sm"  value="Địa Chỉ">
               </div>
               <button type="submit" class="btn btn-mega">Đăng Ký</button>
             </form>

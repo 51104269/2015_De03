@@ -126,3 +126,39 @@ $(".shopping_cart .edit-button").click(function(e){
 		}
     });
 });
+//Send Mail
+$(".checkout-page #mailForm button").click(function(e){
+	e.preventDefault();
+	$(".checkout-page img.loading").show();
+	var src = $(this).attr('src');
+	var total = parseInt($(".checkout-page .price").html());
+	var name = $(".checkout-page #mailForm input[name='name']").val();
+	var email = $(".checkout-page #mailForm input[name='email']").val();
+	var address = $("#addressForm input[name='address']").val();
+	if(name == ''){
+		$(".checkout-page .mailNotification").html("Điền tên của bạn vào ô trống");
+	}
+	else if (email == ''){
+		$(".checkout-page .mailNotification").html("Điền Email hợp lệ vào ô trống");
+	}
+	else if (address == '' || address == 'Địa Chỉ'){
+		$(".checkout-page .mailNotification").html("Điền vào địa chỉ của bạn vào ô cột bên cạnh");
+	}
+	
+	else {
+		$.ajax({
+			url: src + "checkout/mail",
+			type: "get",
+			data: {name: name,email:email,total:total,address:address},
+			dataType: 'json',	
+			success: function(data){
+				$(".checkout-page .mailNotification").html("Đã Xong ! Kiểm tra hộp Mail của bạn để xác nhận hóa đơn");
+				$(".checkout-page #mailForm").hide();
+			},
+			error: function(request, status, error) {
+				$(".checkout-page .mailNotification").html(request.responseText);
+			}
+		});
+	}
+	
+});

@@ -46,6 +46,8 @@ Route::get('cart', 'OrderController@index');
 Route::get('cart/add', 'OrderController@add_to_cart');
 Route::get('cart/delete', 'OrderController@remove_from_cart');
 Route::get('cart/edit', 'OrderController@update_cart');
+Route::get('checkout', 'OrderController@checkout');
+Route::get('checkout/mail', 'OrderController@checkout_mail');
 
 //--Account Route
 Route::post('account/new', 'accountController@create');

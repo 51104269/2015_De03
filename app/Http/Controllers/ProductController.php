@@ -30,7 +30,34 @@ class ProductController extends Controller {
 		return $query->get();
 	
 	}
-
+	
+	public function product_search() {
+	
+		$arr_name = Product::where('name', 'LIKE', $_GET['value'])->get()->toArray(); 
+		$arr_desc = Product::where('description', 'LIKE', $_GET['value'])->get()->toArray();
+		$result = $arr_name + $arr_desc;
+		$res = '';
+		if(count($result) == 0) 
+			$res = "<li>Không có sản phẩm tương ứng</li>";
+		else {
+			foreach($result as $product){
+				$res .= "<li><a href=\"{$_GET['src']}product\\{$product['id']}\"><img src=\"{$_GET['src']}{$product['url']}\" width='50' height='50'>{$product['name']}</a></li>";
+			}
+		}
+		return Response::json([
+					"status"  => $res
+				]);	
+	}
+	
+	public function page_search($value) {
+	
+		$arr_name = Product::where('name', 'LIKE', $value)->get()->toArray(); 
+		$arr_desc = Product::where('description', 'LIKE', $value)->get()->toArray();
+		$result = $arr_name + $arr_desc;
+		return view('search',['value' => $value,
+								'products' => $result]);
+			
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *

@@ -230,9 +230,11 @@ jQuery(function ($) {
     searchinput.bind("change paste keyup", function () {
         searchdropdown.show()
     });
+	
     searchinput.bind("blur", function () {
-        searchdropdown.hide()
-    })
+       if(searchinput.val() == '' || searchinput.val() == 'Search' )
+		searchdropdown.hide();
+    });
 });
 jQuery(function ($) {
     "use strict";

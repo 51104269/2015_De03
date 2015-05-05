@@ -66,10 +66,13 @@ Route::get('category/destroy/{id}', 'categoryController@destroy');
 Route::get('product/{id}/', [
     'as' => 'product', 'uses' => 'productController@show'
 ]);
+
 Route::post('product/new', 'productController@create');
 Route::get('product/update/{id}', 'productController@update');
 Route::get('product/destroy/{id}', 'productController@destroy');
 
+Route::get('search', 'productController@product_search');
+Route::get('search/{id}', 'productController@page_search');
 //--Image Upload 
 Route::post('apply/upload', 'productController@upload');
 

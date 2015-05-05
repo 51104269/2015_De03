@@ -72,7 +72,7 @@
           <div class="container"> 
             <!-- Logo -->
             <div class="navbar-logo pull-left"> <a href="#"><img src="{{ URL::asset('/') }}images/header-logo.png" alt="Violet1009"></a></div>
-            <div class="navbar-welcome pull-left compact-hidden hidden-xs">Chào mừng đến với Violet1009  <?php echo Cookie::get('cart'); ?> </div>
+            <div class="navbar-welcome pull-left compact-hidden hidden-xs">Chào mừng đến với Violet1009</div>
             <div class="clearfix visible-sm"></div>
             <!-- //end Logo --> 
             <!-- Secondary menu -->
@@ -116,13 +116,12 @@
             <!-- Search -->
             <form class="navbar-search form-inline hidden-xs pull-right" role="form">
               <div class="form-group">
-                <button type="submit" class="button"><span class="icon-search-2"></span></button>
-                <input type="text" class="form-control" value="Tìm Kiếm" onblur="if (this.value == '') {this.value = 'Search';}" onfocus="if(this.value == 'Search') {this.value = '';}">
+                <button type="submit" src="{{ URL::asset('/')}}" class="button"><span class="icon-search-2"></span></button>
+                <input src="{{ URL::asset('/') }}" type="text" class="form-control" value="Tìm Kiếm" onblur="if (this.value == '') {this.value = 'Search';}" onfocus="if(this.value == 'Search') {this.value = '';}">
               </div>
               <div class="dropdown-search">
                 <ul>
-                  <li><a href="#"><span class="amount">12</span>search auto</a></li>
-                  <li><a href="#"><span class="amount">22</span>search auto</a></li>
+                  
                 </ul>
               </div>
             </form>
@@ -216,8 +215,8 @@
               <div class="tab-content"> <!-- Search -->
                 <form class="navbar-search form-inline" role="form">
                   <div class="form-group">
-                    <button type="submit" class="button"><span class="icon-search-2"></span></button>
-                    <input type="text" class="form-control" value="Tiềm Kiếm" onblur="if (this.value == '') {this.value = 'Search';}" onfocus="if(this.value == 'Search') {this.value = '';}">
+                    <button type="submit" src="{{ URL::asset('/')}}" class="button"><span class="icon-search-2"></span></button>
+                    <input src ="{{ URL::asset('/') }}" type="text" class="form-control" value="Tiềm Kiếm" onblur="if (this.value == '') {this.value = 'Search';}" onfocus="if(this.value == 'Search') {this.value = '';}">
                   </div>
                 </form>
                 <!-- //end Search --> 
@@ -266,7 +265,7 @@
 	<!-- CONTENTS -->
     @yield('content')
 	<!-- end CONTENTS-->
-	
+	<p class="debug"></p>
     <!-- Blog widget -->
     <section class="blog-widget parallax">
       <div class="container content">

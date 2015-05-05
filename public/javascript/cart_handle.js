@@ -95,6 +95,7 @@ $(".shopping_cart .remove-button").click(function(e){
 		}
     });
 });
+
 $(".shopping_cart .edit-button").click(function(e){
 	e.preventDefault();
 	var src = $(this).attr('src');
@@ -160,5 +161,37 @@ $(".checkout-page #mailForm button").click(function(e){
 			}
 		});
 	}
+	
+});
+
+$(".navbar-search  input.form-control").keyup(function(){
+	var src = $(this).attr('src');
+	var val = $(this).val();
+	$.ajax({
+			url: src + "search",
+			type: "get",
+			data: {value:val, src:src},
+			dataType: 'json',	
+			success: function(data){
+				var arr = $.map(data, function(el) { return el; });
+				$(".navbar-search .dropdown-search ul").html(arr[0]);
+				$(".navbar-search  .dropdown-search").show();
+			},
+			error: function(request, status, error) {
+				$(".debug").html(request.responseText);
+			}
+			
+		});
+	
+});
+
+$(".navbar-search .button").click(function(e){
+	e.preventDefault();
+	var src = $(".navbar-search .button").attr('src');
+	var val = $(".navbar-search  input.form-control").val();
+	if(val != '')
+	window.location.href =src + "search/"+ val.toString();	
+});
+$(".navbar-search input.form-control").blur(function(){
 	
 });

@@ -163,7 +163,28 @@ $(".checkout-page #mailForm button").click(function(e){
 	}
 	
 });
-
+$("#newsletter").submit(function(e){
+	e.preventDefault();
+	$(".newsletter .nloader").show();
+	var email = $(this).find("input[name='email']").val();
+	src = $(this).attr("action");
+	$.ajax({
+		url: src,
+		type: "get",
+		data: {email:email},
+		dataType: 'json',	
+		success: function(data){
+			$(".newsletter .mailNotification").html("Chúc mừng bạn! Hãy kiểm tra hộp Mail của bạn để nhận điều bất ngờ");
+			$("#newsletter").hide();
+			$(".newsletter .nloader").hide();	
+		},
+		error: function(request, status, error) {
+			$(".newsletter .mailNotification").html(request.responseText);
+			$(".newsletter .nloader").hide();	
+		}
+	});
+    
+});
 $(".navbar-search  input.form-control").keyup(function(){
 	var src = $(this).attr('src');
 	var val = $(this).val();
@@ -191,7 +212,4 @@ $(".navbar-search .button").click(function(e){
 	var val = $(".navbar-search  input.form-control").val();
 	if(val != '')
 	window.location.href =src + "search/"+ val.toString();	
-});
-$(".navbar-search input.form-control").blur(function(){
-	
 });

@@ -71,7 +71,7 @@
         <div class="background">
           <div class="container"> 
             <!-- Logo -->
-            <div class="navbar-logo pull-left"> <a href="#"><img src="{{ URL::asset('/') }}images/header-logo.png" alt="Violet1009"></a></div>
+            <div class="navbar-logo pull-left"> <a href="{{ url('/')}}"><img src="{{ URL::asset('/') }}images/header-logo.png" alt="Violet1009"></a></div>
             <div class="navbar-welcome pull-left compact-hidden hidden-xs">Chào mừng đến với Violet1009</div>
             <div class="clearfix visible-sm"></div>
             <!-- //end Logo --> 
@@ -89,7 +89,7 @@
 					<li><a href="{{ url('loginView')}}">Đăng Nhập</a></li>
 					<li><a href="{{ url('signupView') }}">Đăng Ký</a></li>
 				  @else 
-					  <li><a href="#">Tài Khoản</a></li>
+				     <li><a href="{{ url('auth/edit') }}">Đổi Mật Khẩu</a></li>	 
 					 <li><a href="{{ url('auth/user-logout') }}">Đăng Xuất</a></li>	
 					 <li><a href="{{ url('cart')}}">Giỏ Hàng</a></li>	
 				  @endif
@@ -104,7 +104,11 @@
                     <li class="item"> <a href="#" class="preview-image"><img class="preview preview-cart url" src="{{ URL::asset('/') }}{{$product->url}}" alt=""></a>
                       <div class="description"> <a href="#" class = "preview-cart name">{{$product->name}}</a> <strong class="preview-cart price">{{$product->price}}</strong>VND</div>
                     </li>
-					<?php } else echo "<li>Không có sản phẩm nào</li>";?>
+					<?php } else {?>
+					<li class="item"> <a href="#" class="preview-image"><img class="preview preview-cart url" src="{{ URL::asset('/') }}images/AjaxLoader.gif" alt=""></a>
+                      <div class="description"> <a href="#" class = "preview-cart name">Chưa có sản phẩm nào trong giỏ</a> <strong class="preview-cart price"></strong>000 VND</div>
+                    </li>
+					<?php } ?>
                   </ul>
                   <div class="total">Tổng cộng: <span class ="preview-cart total">{{App\Order::total_price(Cookie::get('cart'))}}</span> 000VND</div>
                   <a href="{{ url('checkout')}}" class="btn btn-mega" >Thanh Toán</a>
@@ -129,7 +133,7 @@
             <dl class="navbar-main-menu hidden-xs">
               <dt class="item">
                 <ul class="sf-menu">
-                  <li><a href="#" class="btn-main"><span class="icon icon-home"></span></a>
+                  <li><a href="{{ url('/')}}" class="btn-main"><span class="icon icon-home"></span></a>
                   </li>
                 </ul>
               </dt>
@@ -186,7 +190,7 @@
                   </div>
                 </div>
               </dd>
-              <dt class="item"> <a href="#" class="btn-main line">LIÊN HỆ</a> </dt>
+              <dt class="item"> <a href="{{ url('contact')}}" class="btn-main line">LIÊN HỆ</a> </dt>
               <dd></dd>
             </dl>
             <!-- //end Main menu --> 
@@ -233,7 +237,11 @@
                     <li class="item"> <a href="#" class="preview-image"><img class="preview preview-cart url" src="{{ URL::asset('/') }}{{$product->url}}" alt=""></a>
                       <div class="description"> <a href="#" class = "preview-cart name">{{$product->name}}</a> <strong class="preview-cart price">{{$product->price}}</strong>VND</div>
                     </li>
-					<?php } else echo "<li>Không có sản phẩm nào</li>";?>
+					<?php } else {?>
+					<li class="item"> <a href="#" class="preview-image"><img class="preview preview-cart url" src="{{ URL::asset('/') }}images/AjaxLoader.gif" alt=""></a>
+                      <div class="description"> <a href="#" class = "preview-cart name">Chưa có sản phẩm nào trong giỏ</a> <strong class="preview-cart price"></strong>000 VND</div>
+                    </li>
+					<?php } ?>
                   </ul>
                   <div class="total">Tổng cộng: <span class ="preview-cart total">{{App\Order::total_price(Cookie::get('cart'))}}</span> 000VND</div>
                   <a href="{{ url('checkout')}}" class="btn btn-mega">Thanh Toán</a>
@@ -294,12 +302,14 @@
               </div>
               <div class="col-sm-12 col-md-12 col-lg-6 tabBlock" id="TabBlock-1">
                 <p>Điền email và gửi cho Violet1009 để nhận được Voucher 10%</p>
-                <form class="form-inline" role="form">
+                <form class="form-inline" role="form" id="newsletter" action="{{url('newsletter')}}">
                   <div class="form-group input-control">
                     <button type="submit" class="button"><span class="icon-envelop"></span></button>
-                    <input type="text" class="form-control" value="Địa Chỉ E-mail..." onblur="if (this.value == '') {this.value = 'Your E-mail...';}" onfocus="if(this.value == 'Your E-mail...') {this.value = '';}">
+                    <input type="email" name="email" class="form-control" value="Địa Chỉ E-mail..." onblur="if (this.value == '') {this.value = 'Your E-mail...';}" onfocus="if(this.value == 'Your E-mail...') {this.value = '';}" required>
                   </div>
                 </form>
+				<img class="newsletter nloader" src="{{ URL::asset('/') }}images/AjaxLoader.gif">
+				<p class="newsletter mailNotification"></p>
               </div>
             </div>
           </div>
@@ -307,9 +317,7 @@
             <h3>TRUY CẬP FANPAGE<a class="expander visible-xs" href="#TabBlock-2">+</a></h3>
             <div  class="tabBlock" id="TabBlock-2">
               <ul class="find-us">
-                <li class="divider"><a href="#" class="animate-scale"><span class="icon icon-facebook-3"></span></a></li>
-                <li class="divider"><a href="#" class="animate-scale"><span class="icon icon-youtube-3"></span></a></li>
-                <li class="divider"><a href="#" class="animate-scale"><span class="icon icon-googleplus-2"></span></a></li>
+                <li class="divider"><a href="https://www.facebook.com/QuanAoTheThaoSinhVien" class="animate-scale"><span class="icon icon-facebook-3"></span></a></li>
               </ul>
             </div>
           </div>
@@ -327,8 +335,7 @@
               <h3>Thông tin<a class="expander visible-xs" href="#TabBlock-3">+</a></h3>
               <div  class="tabBlock" id="TabBlock-3">
                 <ul class="menu">
-                  <li><a href="about.html">Về Team</a></li>
-                  <li><a href="#"></a></li>
+                  <li><a href="{{ url('about')}}">Về Team</a></li>
                 </ul>
               </div>
             </div>
@@ -341,11 +348,11 @@
             </div>
             <div class="clearfix visible-sm"></div>
             <div class="col-sm-6 col-md-3 col-lg-3 collapsed-block">
-              <h3>Tài Khoản<a class="expander visible-xs" href="#TabBlock-5">+</a></h3>
+              <h3>Violet1009<a class="expander visible-xs" href="#TabBlock-5">+</a></h3>
               <div  class="tabBlock" id="TabBlock-5">
                 <ul class="menu">
-                  <li><a href="#">Tài Khoản Của Bạn</a></li>
-                  <li><a href="#">Lịch Sử Đặt Hàng</a></li>
+                  <li><span>Shop Thời trang cao cấp</span></li>
+				  <li><span>Thế giới thời trang xa hoa của bạn</span></li>
                 </ul>
               </div>
             </div>

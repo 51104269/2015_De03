@@ -31,7 +31,7 @@ class OrderController extends Controller {
 		$id = 0;
 		if(Cookie::get('cart') == false){
 			$ord = Order::create(["account_id"  => 0]);
-			Cookie::queue('cart', $ord->id);				
+			Cookie::queue('cart', $ord->id, 259200);				
 			$id = $ord->id;
 		}
 		else $id = Cookie::get('cart');
@@ -64,6 +64,17 @@ class OrderController extends Controller {
 	public function checkout_mail(){
 		Mail::send('emails.view', array('name'=> $_GET['name'], 'total' => $_GET['total'] , 'address' => $_GET['address']), function($message){
 			$message->to($_GET['email'],$_GET['name'])->subject('XÁC NHẬN ĐƠN HÀNG TỪ VIOLET1009');
+		});
+		return Response::json([
+				"status"  => 'ok'
+		]);
+
+	}
+	
+	public function newsletter(){
+		$voucher = uniqid();
+		Mail::send('emails.welcome', array('name'=> "QUÝ KHÁCH HÀNG",'voucher'=>$voucher), function($message){
+			$message->to($_GET['email'],"Khách hàng")->subject('CHÚC MỪNG BẠN ĐÃ ĐĂNG KÝ VIOLET1009');
 		});
 		return Response::json([
 				"status"  => 'ok'

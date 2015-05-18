@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProdCat;
 use App\Category;
+use App\Comment;
 use Response;
 use Validator;
 use Redirect;
@@ -87,7 +88,18 @@ class ProductController extends Controller {
 					"status"  => 'ok'
 				]);	
 	}
-
+	public function comment()
+	{
+		Comment::create([
+				"product_id"  => $_POST['product_id'],
+				"account_id"  => $_POST['account_id'],
+				"content" => $_POST['content'],	
+		]);
+					
+		return Response::json([
+					"status"  => 'ok'
+				]);	
+	}
 	/**
 	 * Store a newly created resource in storage.
 	 *

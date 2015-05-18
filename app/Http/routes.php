@@ -27,9 +27,13 @@ Route::get('auth/admin-logout', 'adminController@logout');
 //---User Routes
 Route::get('loginView', 'AccountController@loginView');
 Route::get('signupView', 'AccountController@signupView');
+//Route::get('auth/edit', 'AccountController@editView');
 Route::post('auth/user-login', 'AccountController@login');
-Route::get('auth/user-logout', 'AccountController@logout');
+Route::post('auth/user-edit', 'AccountController@editUser');
+//Route::get('auth/user-logout', 'AccountController@logout');
 Route::post('auth/user-signup', 'AccountController@signup');
+Route::get('auth/edit', ['middleware' => 'auth', 'uses' => 'AccountController@editView']);
+Route::get('auth/user-logout', ['middleware' => 'auth', 'uses' => 'AccountController@logout']);
 
 Route::any("category/index", [
   "as"   => "category/index",
@@ -68,6 +72,7 @@ Route::get('product/{id}/', [
 ]);
 
 Route::post('product/new', 'productController@create');
+Route::post('product/comment', 'productController@comment');
 Route::get('product/update/{id}', 'productController@update');
 Route::get('product/destroy/{id}', 'productController@destroy');
 
@@ -85,6 +90,15 @@ Route::any("product/index", [
   "as"   => "product/index",
   "uses" => "ProductController@index"
 ]);
+//---Contact-----
+Route::get('contact', function()
+{
+    return view('contact');
+});
+Route::get('about', function()
+{
+    return view('about');
+});
 
-
+Route::get('newsletter', 'OrderController@newsletter');
 

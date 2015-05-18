@@ -40,3 +40,14 @@
 .loading{
   display:none;
 }
+
+.commentPanel .commentList {
+  list-style-type: none;
+}
+.commentPanel .commentList li {
+  padding: 20px 0;
+  border-bottom: 1px solid #dedede;
+}
+.newsletter .nloader {
+  display:none;
+}

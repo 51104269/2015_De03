@@ -72,6 +72,36 @@
                   <div class="panel-body"> {{$product->description}} </div>
                 </div>
               </div>
+			  <div class="panel">
+                <div class="panel-heading"> <a data-toggle="collapse" data-parent="#product-accordion" href="#product-size" class="collapsed"> <span class="arrow-down icon-arrow-down-4"></span> <span class="arrow-up icon-arrow-up-4"></span> Bình Luận </a> </div>
+                <div id="product-size" class="panel-collapse collapse">
+                  <div class="panel-body commentPanel">
+						<ul class="commentList">
+					   <?php if(count(App\Comment::load_Comments($product->id)) != 0){ ?>
+							
+								@foreach(App\Comment::load_Comments($product->id) as $com)
+								<li><b>{{$com['email']}} :</b><br>
+									{{$com['content']}}
+								</li>
+								@endforeach
+							
+					   <?php } else echo "<p>Chưa có bình luận nào</p>"; ?>
+					    </ul>
+					   @if(Auth::check())
+						    <form action = "{{url('product/comment') }}">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<input type="hidden" id ="product_id" name="product_id" value="{{$product->id}}">
+								<input type="hidden" id ="account_id" name="account_id" value=<?php echo Auth::user()->id; ?> src=<?php echo Auth::user()->email; ?>>
+								<textarea id="content" name="content" rows="4" cols="50"></textarea>
+								<button class="btn btn-mega btn-lg">ĐĂNG</button>
+						    </form>
+							<p class="result"></p>
+					   @else
+							<a href="{{ url('loginView')}}">Đăng Nhập để bình luận</a>
+					   @endif
+				  </div>
+                </div>
+              </div>
             </div>
           </div>
           <!-- //end Description --> 
@@ -120,5 +150,5 @@
 @endsection
 
 @section('javascript')
-	
+<script src="{{ URL::asset('/') }}javascript/comment.js"></script>
 @endsection

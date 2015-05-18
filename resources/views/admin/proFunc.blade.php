@@ -95,6 +95,7 @@
 							<input type="number" step="any" class="{{$pro->id}} pro-price" value="{{$pro->price}}">
 						</td>
 						<td class="{{$pro->id}} pro-cat">
+							<div class="scrollCat">
 							@foreach(App\Category::all() as $cat)
 								<?php $check = false;?>
 								@foreach(App\ProdCat::all() as $prodcat)
@@ -110,6 +111,7 @@
 								?>
 								
 							@endforeach
+							</div>
 						</td>
 						<td><button class="btn edit-link" id="{{$pro->id}}">Chỉnh Sửa</button>
 							<img class="{{$pro->id}} loading" src="images\loader.gif">

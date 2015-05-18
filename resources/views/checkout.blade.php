@@ -42,7 +42,8 @@
 					@endforeach
                   </tbody>
                 </table>
-                <div class="pull-left"> <b class="title">Phí chuyển hàng:</b> Miễn Phí </div>
+                <div class="pull-left"> <b class="title">Phí chuyển hàng:</b> Miễn Phí </div><br>
+				<div class="pull-left"> <b class="title">Phương thức thanh toán:</b> COD (Chuyển tiền khi nhận hàng) </div><br>
                 <div class="pull-right">
                   <p><b class="title">Tổng Cộng Hóa Đơn:</b> <span class="price">{{App\Order::total_price(Cookie::get('cart'))}}</span> 000 VND</p>
                 </div>

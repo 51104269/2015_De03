@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Account;
 use Response;
+use Hash;
 class AccountController extends Controller {
 
 	/**
@@ -66,7 +67,28 @@ class AccountController extends Controller {
 		    "status" => "invalid"
 		]);
 	}
-	
+	public function editUser()
+	{	
+		$acc = Auth::user();
+		$credentials = [
+		  "email"    => $acc->email,
+		  "password" => $_POST["old-password"],
+		  "group"    => $acc->group
+		];
+		
+		
+		if (Auth::validate($credentials)) 
+		{   
+	        $acc->password = Hash::make($_POST["password"]);
+			$acc->save();
+			return Response::json([
+				"status"  => "ok",
+			]);
+		}	
+		return Response::json([
+		    "status" => "Xác thực thất bại"
+		]);
+	}
 	public function loginView(){
 		
 		return view('login');
@@ -75,6 +97,10 @@ class AccountController extends Controller {
 	public function signupView(){
 		
 		return view('signup');
+	}
+	public function editView(){
+		
+		return view('edit');
 	}
 	/**
 	 * Show the form for creating a new resource.
@@ -128,10 +154,7 @@ class AccountController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
-	{
-		
-	}
+	
 
 	/**
 	 * Update the specified resource in storage.

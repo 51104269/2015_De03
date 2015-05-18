@@ -36,7 +36,7 @@
                   <label for="password">Nhập lại mật khẩu mới</label>
                   <input type="password" class="form-control" name="re-password" id="re-password" required>
                 </div>
-                <button type="submit" class="btn btn-mega">ĐĂNG NHẬP</button>
+                <button type="submit" class="btn btn-mega">ĐỔI MẬT KHẨU</button>
               </form>
             </div>
 			<p id="result"></p>

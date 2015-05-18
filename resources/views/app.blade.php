@@ -54,7 +54,7 @@
 			@endforeach
 		</ul>
     </li>
-    <li><span class="name"><a href="#">Liên Hệ</a></span></li>
+    <li><span class="name"><a href="{{ url('contact')}}">Liên Hệ</a></span></li>
   </ul>
 </nav>
 <!-- //end Off Canvas Menu -->
@@ -281,10 +281,10 @@
         <div class="posts flexslider">
           <ul class="slides">
             <li>
-              <div class="image-cell"><a href="blog.html"><img src="{{ URL::asset('/') }}images/temp/block-image-03-176x119.jpg" class="img-responsive animate scale" alt=""></a></div>
+              <div class="image-cell"><a href="http://www.24h.com.vn/tin-tuc-thoi-trang/gioi-tre-dong-loat-lang-xe-ao-khoac-kimono-dau-he-c215a706968.html"><img src="http://24h-img.24hstatic.com/upload/2-2015/images/2015-05-07/1430972661-cyehskrcq13_rphn.jpg" class="img-responsive animate scale" alt=""></a></div>
               <div class="offset-image">
-                <h4><a href="#">Cập Nhật Giao Diện Chính </a></h4>
-                <p>Thêm các chức năng màn hình chính.<br> Nguyễn Tiến Thành 01-05-2015</p>
+                <h4><a href="#">Giới trẻ đồng loạt lăng xê áo khoác kimono đầu hè </a></h4>
+                <p>Được biết đến từ năm 2014, áo khoác kimono dáng dài đã trở lại đầu hè 2015 và được dự báo sẽ tiếp tục "làm mưa làm gió" làng thời trang Việt năm nay.</p>
               </div>
             </li>
           </ul>

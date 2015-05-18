@@ -210,9 +210,9 @@
 			data-endelementdelay="0.1"
 			 data-endspeed="300"
 
-			style="z-index: 7;">new<br>
-                fashion<br>
-                clothing </div>
+			style="z-index: 7;">CƠN LỐC<br>
+                THỜI TRANG<br>
+				THỜI THƯỢNG</div>
               <!-- LAYER NR. 9 -->
               <div class="text2 tp-caption skewfromrightshort"
 			 data-x="center" data-hoffset="455"
@@ -224,8 +224,8 @@
 			data-endelementdelay="0.1"
 			 data-endspeed="300"
 
-			style="z-index: 8;">FALL<br>
-                WINTER<br>
+			style="z-index: 8;">MÙA HÈ<br>
+                 RỰC CHÁY<br>
                 2015 </div>
             </li>
           </ul>

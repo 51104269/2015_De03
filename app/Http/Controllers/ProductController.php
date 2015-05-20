@@ -34,9 +34,16 @@ class ProductController extends Controller {
 	
 	public function product_search() {
 	
-		$arr_name = Product::where('name', 'LIKE', $_GET['value'])->get()->toArray(); 
-		$arr_desc = Product::where('description', 'LIKE', $_GET['value'])->get()->toArray();
-		$result = $arr_name + $arr_desc;
+		//$arr_name = Product::where('name', 'LIKE', $_GET['value'])->get()->toArray(); 
+		//$arr_desc = Product::where('description', 'LIKE', $_GET['value'])->get()->toArray();
+		
+		$result = array();
+		$value = $_GET['value'];
+		foreach(Product::all() as $prod){
+			if($value != '')
+			   if( strpos((strtolower($prod->name)),(strtolower($value)))!==false || strpos(strtolower($prod->description),strtolower($value)) !==false)
+				  array_push($result,$prod);	
+		}
 		$res = '';
 		if(count($result) == 0) 
 			$res = "<li>Không có sản phẩm tương ứng</li>";
@@ -52,9 +59,15 @@ class ProductController extends Controller {
 	
 	public function page_search($value) {
 	
-		$arr_name = Product::where('name', 'LIKE', $value)->get()->toArray(); 
-		$arr_desc = Product::where('description', 'LIKE', $value)->get()->toArray();
-		$result = $arr_name + $arr_desc;
+		//$arr_name = Product::where('name', 'LIKE', $value)->get()->toArray(); 
+		//$arr_desc = Product::where('description', 'LIKE', $value)->get()->toArray();
+		//$result = $arr_name + $arr_desc;
+		$result = array();
+		foreach(Product::all() as $prod){
+			if($value != '')
+			   if( strpos((strtolower($prod->name)),(strtolower($value)))!==false || strpos(strtolower($prod->description),strtolower($value)) !==false)
+				  array_push($result,$prod);	
+		}
 		return view('search',['value' => $value,
 								'products' => $result]);
 			
@@ -159,8 +172,8 @@ class ProductController extends Controller {
 		}
 		foreach(ProdCat::all() as $prod){
 			if ($prod->category_id == $cat_id) {
-				$product = Product::find($prod->product_id);
-				array_push($arr,$product);
+				$product_arr = Product::find($prod->product_id);
+				array_push($arr,$product_arr);
 			}
 		}
 		

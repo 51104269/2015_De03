@@ -14,7 +14,10 @@ class Comment extends Model {
        foreach ($comments as $item)
        {
             $acc = Account::find($item->account_id);
-			array_push($arr,array("email" => $acc->email,
+			$email = "someoneHasGone@xxx.yyy";
+			if($acc)
+				$email = $acc->email;
+			array_push($arr,array("email" => $email,
 								  "content" =>  $item->content,
 								  ));
         }

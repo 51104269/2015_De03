@@ -15,7 +15,7 @@
 <!-- Bootstrap core CSS -->
 {!! HTML::style('main/css/bootstrap.min.css') !!}
 <!-- Custom styles for this template -->
-{!! HTML::style('main/css/megatron-template.css') !!}
+{!! HTML::style('main/css/violet1009.css') !!}
 <!-- CSS modules -->
 {!! HTML::style('main/css/icomoon.css') !!}
 {!! HTML::style('main/css/fontello.css') !!}
@@ -29,7 +29,6 @@
 {!! HTML::style('main/css/smoothness/jquery-ui-1.10.3.custom.min.css') !!} 
 {!! HTML::style('main/css/jquery.fancybox.css') !!} 
 {!! HTML::style('main/css/hoverfold.css') !!} 
- 
 {!! HTML::style('main/rs-plugin/css/settings.css', array('media' => 'screen')) !!}
 {!! HTML::style('main/rs-plugin/css/extralayers.css', array('media' => 'screen')) !!}
 <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
@@ -400,7 +399,7 @@
 {!! HTML::script('main/js/jquery.plugin.js') !!}
 {!! HTML::script('main/js/jquery.countdown.js') !!} 
 {!! HTML::script('main/js/jquery.carouFredSel-6.2.1-packed.js') !!}
-{!! HTML::script('main/js/megatron.js') !!} 
+{!! HTML::script('main/js/violet1009.js') !!} 
 {!! HTML::script('javascript/cart_handle.js') !!} 
 <!-- SLIDER REVOLUTION 4.x SCRIPTS  --> 
 <script type="text/javascript" src="main/rs-plugin/js/jquery.themepunch.tools.min.js"></script> 

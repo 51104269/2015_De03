@@ -58,7 +58,7 @@
 					  <div class="form-group">
 						<label class="light">ĐỊA CHỈ EMAIL<span class="required"> *</span></label>
 						@if(!Auth::check())
-							<input type="email" id="email" name ="email" class=form-control">
+							<input type="email" id="email" name ="email" class="form-control">
 						@else
 							<input type="email" id="email" name ="email" class="form-control" value="{{Auth::user()->email}}" disabled>
 						@endif
